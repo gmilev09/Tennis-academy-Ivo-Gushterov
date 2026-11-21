@@ -1,0 +1,20 @@
+# ─── Тенис клуб "Иво Гущеров" · Netlify ──────────────────────────────────────
+# Статичен сайт: .next-static/ (HTML + всички снимки, вградени като data URL
+# в src/lib/images-data.js), без база данни, без environment променливи.
+#
+# Снимките се генерират от scripts/optimize-images.mjs и са вградени в кода,
+# затова се показват на всеки хостинг — без зависимост от отделни файлове.
+
+[build]
+  command = "npm run build"
+  publish = ".next-static"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Header-ите са в public/_headers — файлът се копира в .next-static/ и се
+# чете и от Netlify, и от Cloudflare Pages (един източник на истина).
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
